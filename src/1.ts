@@ -2,7 +2,6 @@ type T1 = { result: null | [number, number]; dic: Record<string, number> };
 function twoSum(nums: number[], target: number): number[] {
   const { result } = nums.reduce<T1>(
     (acc, n, index) => {
-      console.log(acc);
       if (acc.result) return acc;
       const seikai = acc.dic[target - n];
       if (seikai !== undefined) {
