@@ -1,10 +1,9 @@
 type Result = { val: number; closeness: number };
-type TwoSums = Set<number>;
-type T = { result?: Result; twoSum: TwoSums; old: number[] };
+type T = { result?: Result; twoSum: Set<number>; old: Set<number> };
 function threeSumClosest(nums: number[], target: number): number {
   const { result } = nums.reduce<T>(
     (acc, n) => {
-      const result = Array.from(acc.twoSum).reduce((acc, _n) => {
+      acc.result = Array.from(acc.twoSum).reduce((acc, _n) => {
         const threeSum = n + _n;
         const result = { val: threeSum, closeness: (target - threeSum) ** 2 };
         if (!acc) return result;
@@ -14,14 +13,10 @@ function threeSumClosest(nums: number[], target: number): number {
       acc.old.forEach((_n) => {
         acc.twoSum.add(n + _n);
       });
-      const next = {
-        result,
-        twoSum: acc.twoSum,
-        old: [...acc.old, n],
-      };
-      return next;
+      acc.old.add(n);
+      return acc;
     },
-    { twoSum: new Set(), old: [] }
+    { twoSum: new Set(), old: new Set() }
   );
   return result!.val;
 }
