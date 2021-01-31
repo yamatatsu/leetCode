@@ -22,10 +22,10 @@ function longestValidParentheses(s: string): number {
 }
 
 test.each([
-  // ["(()", 2],
-  // [")()())", 4],
-  // ["", 0],
-  // ["()(()", 2],
+  ["(()", 2],
+  [")()())", 4],
+  ["", 0],
+  ["()(()", 2],
   ["(()())", 6],
 ])("", (arg1, expected1) => {
   expect(longestValidParentheses(arg1)).toEqual(expected1);
