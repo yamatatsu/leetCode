@@ -15,10 +15,6 @@ function isValidSudoku(board: string[][]): boolean {
         const col = acc.cols[colIndex];
         const blockIndex = getBlockIndex(rowIndex, colIndex);
         const block = acc.blocks[blockIndex];
-        // console.log({ cell, rowIndex, colIndex, blockIndex });
-        // console.log("row", row);
-        // console.log("col", col);
-        // console.log("block", block);
 
         if (row.includes(cell) || col.includes(cell) || block.includes(cell)) {
           acc.valid = false;
@@ -28,7 +24,6 @@ function isValidSudoku(board: string[][]): boolean {
         block.push(cell);
         colIndex++;
       }
-      // console.log(acc);
       return acc;
     },
     {
