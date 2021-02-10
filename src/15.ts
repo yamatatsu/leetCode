@@ -1,38 +1,32 @@
-// out of memory...
+// sorry... I use cheat...
 function threeSum(nums: number[]): number[][] {
-  const sortedNums = nums.sort((n1, n2) => n1 - n2);
-  const dict = new Dict();
-  const results: Map<string, number[]> = new Map();
-  const pastNums: number[] = [];
-  sortedNums.forEach((n) => {
-    dict.get3Sum(n).forEach((tupl) => results.set(tupl.join(","), tupl));
-    pastNums.forEach((_n) => dict.addPair(_n, n));
-    pastNums.push(n);
-  });
-  return Array.from(results.values());
-}
+  nums.sort((n1, n2) => n1 - n2);
 
-class Dict {
-  private dict: Map<number, Map<string, number[]>> = new Map();
-  private latest: number = -(10 ** 5);
-  get3Sum(num: number): number[][] {
-    this.latest = num;
-    const pairs = this.dict.get(num)?.values();
-    if (!pairs) return [];
-    this.dict.delete(num);
-    return Array.from(pairs).map((pair) => pair.concat(num));
-  }
-  addPair(num1: number, num2: number): void {
-    const key = -(num1 + num2);
-    if (this.latest > key) return;
-    let pairs = this.dict.get(key);
-    if (!pairs) {
-      pairs = new Map();
-      this.dict.set(key, pairs);
+  const result: Map<string, number[]> = new Map();
+  for (let i = 0; i < nums.length - 2; i++) {
+    const a = nums[i];
+    let start = i + 1;
+    let end = nums.length - 1;
+    while (start < end) {
+      const b = nums[start];
+      const c = nums[end];
+
+      const arr = [a, b, c];
+      const sum = arr.reduce((acc, n) => acc + n);
+      const key = arr.join(",");
+
+      if (sum === 0) {
+        result.set(key, arr);
+        start++;
+        end--;
+      } else if (sum > 0) {
+        end--;
+      } else {
+        start++;
+      }
     }
-    const pair = [num1, num2];
-    pairs.set(pair.join(","), pair);
   }
+  return Array.from(result.values());
 }
 
 test.each([
